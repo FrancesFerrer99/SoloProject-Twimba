@@ -1,0 +1,155 @@
+body, html{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: black;
+    color: whitesmoke;
+    font-size: 16px;
+}
+
+main {
+    margin-left: 23%;
+    margin-right: 33%;
+    color: black;
+    padding: 40px 0px;
+    box-sizing: content-box;
+}
+
+.sidebar {
+    position: fixed;
+    height: 100vh;
+    width: 20%;
+    z-index: 1;
+    overflow: hidden;
+    color: whitesmoke;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.left{
+    left: 0;
+    top: 0;
+    border-right: 1px solid grey;
+}
+
+.right{
+    top: 0;
+    right: 0;
+    border-left: 1px solid grey;
+    width: 30%;
+}
+
+.sidebar-items{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: max-content;
+}
+
+.sidebar-item {
+    font-size: 18px;
+    padding: 10px 10px;
+    border-radius: 30px;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.sidebar-item:hover{
+    background-color: #1a1a1a;
+}
+
+i{
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.icon{
+    width: 50px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+button{
+    background-color: #1DA1F2;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+button:hover,
+button:active{
+    background-color: #0f97eb;
+}
+
+.liked{
+    color: red;
+}
+
+.retweeted {
+    color: limegreen;
+}
+
+.create-tweet {
+    display: grid;
+    grid-template-columns: 10% 90%;
+}
+
+textarea{
+    border: none;
+    resize: none;
+    padding: 10px;
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    line-height: 30px;
+    background-color: black;
+    color: whitesmoke;
+    display: block;
+    width: 100%;
+}
+
+.tweet-btn{
+    display: block;
+    margin-left: auto;
+}
+
+.container{
+    color: whitesmoke;
+    border: 1px solid #c0c0c0;
+    border-radius: 10px;
+    margin-top: 3px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.default-padding{
+    padding: 20px 20px;
+}
+
+.handle{
+    font-size: 12px;
+    font-weight: 500;
+    color: #777;
+    margin-top: 15px;
+}
+
+.tweet-text{
+    font-size: 20px;
+    line-height: 25px;
+}
+
+.tweet-details{
+    margin-top: 30px;
+    display: flex;
+    font-size: 13px;
+    justify-content: space-between;
+}
+
+.tweet-detail{
+    display: flex;
+    justify-content: space-between;
+}

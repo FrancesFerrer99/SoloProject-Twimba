@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Twimba</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <!-- Font Awesome CDN -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="sidebar left">
+            <div class="sidebar-items">
+                <img src="images/scrimbalogo.png" class="icon">
+                <div class="sidebar-item">
+                    <i class="fa-solid fa-house fa-xl"></i>Home
+                </div>
+                <div class="sidebar-item">
+                    <i class="fa-regular fa-hashtag fa-xl"></i>Explore
+                </div>
+                <div class="sidebar-item">
+                    <i class="fa-regular fa-bell fa-xl"></i>Notifications
+                </div>
+                <div class="sidebar-item">
+                    <i class="fa-regular fa-envelope fa-xl"></i>Messages
+                </div>
+                <div class="sidebar-item">
+                    <i class="fa-solid fa-bookmark fa-xl"></i>Bookmarks
+                </div>
+                <div class="sidebar-item">
+                    <i class="fa-solid fa-list fa-xl fa-inverse"></i>Lists
+                </div>
+                <div class="sidebar-item">
+                    <i class="fa-regular fa-user fa-xl"></i>Profile
+                </div>
+                <button>Tweet</button>
+            </div>
+        </div>
+        <main>
+            <div class="create-tweet">
+                <img src="images/profilePick.jpg" alt="profile picture" class="icon">
+                <div>
+                    <textarea placeholder="What's happening?" id="tweet-input" class=""></textarea>
+                    <button class="tweet-btn">Tweet</button>
+                </div>
+            </div>
+            <div id="feed">
+            </div>
+        </main>
+        <div class="sidebar right">
+        </div>
+        <script src="index.js" type="module" async defer></script>
+    </body>     
+</html>
