@@ -5,6 +5,7 @@ body, html{
     background-color: black;
     color: whitesmoke;
     font-size: 16px;
+    overflow-x: hidden;
 }
 
 main {
@@ -102,13 +103,13 @@ textarea{
     border: none;
     resize: none;
     padding: 10px;
-    margin: 0 0 20px 0;
+    margin: 10px 0 20px 0;
     font-size: 20px;
     line-height: 30px;
     background-color: black;
     color: whitesmoke;
     display: block;
-    width: 100%;
+    width: 96%;
 }
 
 .tweet-btn{
@@ -124,6 +125,7 @@ textarea{
     display: flex;
     align-items: flex-start;
     gap: 10px;
+    position: relative;
 }
 
 .default-padding{
@@ -149,7 +151,40 @@ textarea{
     justify-content: space-between;
 }
 
+.container div {
+    width: 100%;
+}
+
 .tweet-detail{
     display: flex;
     justify-content: space-between;
+}
+
+.hidden{
+    display: none;
+}
+
+.replies * {
+    font-size: 13px;
+}
+
+.reply-btn {
+    display: block;
+    margin-left: auto;
+}
+
+.deleteBtn {
+    position: absolute;
+    top: 2%;
+    right: -92%;
+}
+
+.deleteBtn button{
+    background-color: black;
+    color: black;
+    font-size: 10px;
+}
+
+.deleteBtn button:hover{
+    color: #c0c0c0;
 }

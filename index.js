@@ -1,22 +1,25 @@
-import { tweetsData } from './data.js'
+import { tweetsData as tweets} from './data.js'
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 
+let tweetsData = [...tweets]
+
+if(localStorage.getItem('tweets')){
+    tweetsData = JSON.parse(localStorage.getItem('tweets'))
+}
+
 document.addEventListener('click', function(e){
-    if(e.target.dataset.like){
-       handleLikeClick(e.target.dataset.like) 
-    }
-    else if(e.target.dataset.retweet){
+    if(e.target.dataset.like)
+        handleLikeClick(e.target.dataset.like) 
+    else if(e.target.dataset.retweet)
         handleRetweetClick(e.target.dataset.retweet)
-    }
-    else if(e.target.dataset.reply){
-        handleReplyIconClick(e.target.dataset.reply)
-    }
-    else if(e.target.id === 'tweet-btn'){
+    else if(e.target.dataset.replies)
+        handleReplyIconClick(e.target.dataset.replies)
+    else if(e.target.id === 'tweet-btn')
         handleTweetBtnClick()
-    }
-    else if(e.target.id === "reply-btn"){
-        handleReplyBtnClick(e.target.dataset.replyBtn)
-    }
+    else if(e.target.dataset.reply)
+        handleReplyBtnClick(e.target.dataset.reply)
+    else if(e.target.dataset.del)
+        handleDeleteTweet(e.target.dataset.del)
 })
  
 function handleLikeClick(tweetId){ 
@@ -51,6 +54,7 @@ function handleRetweetClick(tweetId){
 
 function handleReplyIconClick(replyId){
     document.getElementById(`replies-${replyId}`).classList.toggle('hidden')
+
 }
 
 function handleTweetBtnClick(){
@@ -66,35 +70,43 @@ function handleTweetBtnClick(){
             replies: [],
             isLiked: false,
             isRetweeted: false,
-            uuid: uuidv4()
+            uuid: uuidv4(),
         })
-    render()
-    tweetInput.value = ''
+        saveToStorage()
+        render()
+        tweetInput.value = ''
     }
-
 }
 
-function handleReplyBtnClick(replyId){
-    const replyInput = document.getElementById('reply-input')
-    console.log(replyId)
-    if(replyInput.value){
-        const newReply = {
-            handle: `@Frances ✅`,
-            profilePic: `images/profilePick.jpg`,
-            tweetText: replyInput.value,
-        }
-        const targetTweet = tweetsData.filter((tweet)=>{
-            return tweet.uuid === replyId
-        })[0]
-        console.log(targetTweet)
-        //targetTweet.replies.unshift(newReply)
-        replyInput.value = ''
-        //render()
+function handleReplyBtnClick(replyUuid){
+    const input = document.getElementById(`tweet-input-${replyUuid}`)
+    const newReply = {
+        handle: `@Frances ✅`,
+        profilePic: `images/profilePick.jpg`,
+        tweetText: input.value,
     }
+    const targetTweet = tweetsData.filter((tweet)=>{
+        return replyUuid === tweet.uuid
+    })[0]
+    targetTweet.replies.unshift(newReply)
+    input.value = ''
+    saveToStorage()
+    render()
+}
 
+function handleDeleteTweet(tweetId){
+    const targetTweet = tweetsData.map((tweet)=>tweet.uuid).indexOf(tweetId)
+    tweetsData.splice(targetTweet, 1)
+    saveToStorage()
+    render()
+}
+
+function saveToStorage(){
+    localStorage.setItem('tweets', JSON.stringify(tweetsData))
 }
 
 function getFeedHtml(){
+
     let feedHtml = ``
     
     tweetsData.forEach(function(tweet){
@@ -110,9 +122,37 @@ function getFeedHtml(){
         if (tweet.isRetweeted){
             retweetIconClass = 'retweeted'
         }
-          
+
+        let repliesHtml =''
+
+        if(tweet.replies.length > 0){
+            tweet.replies.forEach(function(reply){
+                repliesHtml+=`
+                <div class="container replies">
+                    <img src="${reply.profilePic}" class="icon">
+                        <div>
+                            <p class="handle">${reply.handle}</p>
+                            <p class="tweet-text">${reply.tweetText}</p>
+                        </div>
+                </div>
+                `
+            })
+        }
+        repliesHtml += `
+            <div class="reply">
+                <textarea placeholder="Tweet your reply" id="tweet-input-${tweet.uuid}"></textarea>
+                <button 
+                    class="reply-btn" 
+                    data-reply="${tweet.uuid}"
+                >Reply</button>
+            </div>
+            `
+
         feedHtml += `
             <div class="container default-padding">
+                <div class="deleteBtn">
+                    <button id="del-btn${tweet.uuid}" data-del="${tweet.uuid}">X</button>
+                </div>
                 <img src="${tweet.profilePic}" class="icon">
                 <div>
                     <p class="handle">${tweet.handle}</p>
@@ -120,7 +160,7 @@ function getFeedHtml(){
                     <div class="tweet-details">
                         <span class="tweet-detail">
                             <i class="fa-regular fa-comment-dots"
-                                data-reply="${tweet.uuid}"
+                                data-replies="${tweet.uuid}"
                             ></i>
                             ${tweet.replies.length}
                         </span>
@@ -139,6 +179,9 @@ function getFeedHtml(){
                     </div>
                 </div>
             </div>
+            <div class="hidden" id="replies-${tweet.uuid}">
+                    ${repliesHtml}
+            </div> 
             `
    })
    return feedHtml 
